@@ -1,0 +1,25 @@
+#!/system/bin/sh
+# ---------------------------
+# Fix epoch issues in OrangeFox recovery by storing the offset drifts in since_epoch
+# Useful in OrangeFox recovery when the device's RTC is misbehaving
+#
+# By DarthJabba9
+#
+# -------------------------
+
+save_drift() {
+local epoch_cfg=/persist/.fox_epoch_drift.cfg
+local now=$(date +%s)
+local epoch=$(cat /sys/class/rtc/rtc0/since_epoch)
+local drift=$(expr $now - $epoch)
+	
+	# allow 5 minutes drift
+	if [ $drift -gt 600 ]; then
+	   echo -n "$drift" > $epoch_cfg
+	   echo "Drift ($now minus $epoch)=$drift"
+	   echo "Something trashed your device's RTC on $(date -ud @$drift)!"
+	fi
+}
+
+save_drift
+

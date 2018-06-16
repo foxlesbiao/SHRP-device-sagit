@@ -23,6 +23,9 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+# added by DJ9
+LOCAL_PATH := device/xiaomi/sagit
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -54,7 +57,13 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET := 0x02000000
-TARGET_PREBUILT_KERNEL := device/xiaomi/sagit/prebuilt/Image.gz-dtb
+
+# added by DJ9
+#TARGET_PREBUILT_KERNEL := device/xiaomi/sagit/prebuilt/Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_CONFIG := sagit_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/sagit
+# DJ9 end
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8998
@@ -81,6 +90,9 @@ TARGET_COPY_OUT_VENDOR := vendor
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+
+# added by DJ9
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
 
 # TWRP specific build flags
 BOARD_HAS_NO_REAL_SDCARD := true
