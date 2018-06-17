@@ -58,11 +58,14 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET := 0x02000000
 
-# added by DJ9
-#TARGET_PREBUILT_KERNEL := device/xiaomi/sagit/prebuilt/Image.gz-dtb
+# DJ9
+ifeq ($(FOX_BUILD_FULL_KERNEL_SOURCES),1)
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_CONFIG := sagit_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sagit
+else
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/recovery/zImage
+endif
 # DJ9 end
 
 # Platform
