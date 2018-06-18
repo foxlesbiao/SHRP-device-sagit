@@ -11,6 +11,7 @@
 /recovery       emmc      /dev/block/bootdevice/by-name/recovery         flags=display="Recovery";backup=1
 
 /vendor         ext4      /dev/block/bootdevice/by-name/cust       	 flags=display="Vendor";backup=1;wipeingui
+/vendor_image	emmc      /dev/block/bootdevice/by-name/cust             flags=backup=1
 /cust         	ext4      /dev/block/bootdevice/by-name/cust       	 flags=display="Cust";backup=1;wipeingui
 
 /cache          ext4      /dev/block/bootdevice/by-name/cache            flags=display="Cache"
