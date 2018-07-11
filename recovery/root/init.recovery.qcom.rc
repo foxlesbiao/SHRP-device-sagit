@@ -101,6 +101,9 @@ on boot
     setprop sys.usb.config mtp,adb
     setprop sys.usb.config adb
 
+    # Enable DT2W 
+    write /sys/devices/soc/c179000.i2c/i2c-5/5-0020/input/input1/wake_gesture 1
+
 on property:crypto.ready=0
     stop sbinqseecomd
     stop keymaster-3-0
