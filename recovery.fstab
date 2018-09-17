@@ -6,6 +6,7 @@
 /system         ext4      /dev/block/bootdevice/by-name/system               flags=display="System"
 /system_image   emmc      /dev/block/bootdevice/by-name/system               flags=backup=0;flashimg=1
 /data           ext4      /dev/block/bootdevice/by-name/userdata             flags=encryptable=footer;length=-16384
+/dev/block/bootdevice/by-name/userdata /data f2fs nosuid,nodev,noatime,inline_xattr,data_flush	wait,check,encryptable=footer,formattable,length=-16384
 /boot           emmc      /dev/block/bootdevice/by-name/boot                 flags=display="Boot"
 /cache          ext4      /dev/block/bootdevice/by-name/cache                flags=display="Cache"
 /storage        ext4      /data/media/0                  		     flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
@@ -32,10 +33,8 @@
 # Modem backup/restore
 /firmware       vfat      /dev/block/bootdevice/by-name/modem                flags=display="Firmware";backup=0;mounttodecrypt;fsflags=ro
 /modem 		emmc      /dev/block/bootdevice/by-name/modem                flags=display="Modem (Image)";backup=1;flashimg=1
-/dsp		emmc	  /dev/block/bootdevice/by-name/dsp	             flags=backup=1;subpartitionof=/firmware
+/dsp		emmc	  /dev/block/bootdevice/by-name/dsp	             flags=backup=1;subpartitionof=/modem
 /sec       	emmc      /dev/block/bootdevice/by-name/sec                  flags=backup=1;display="Sec"
-#/config	emmc	  /dev/block/bootdevice/by-name/config		     flags=display="OEM";backup=1
-#/sec       	emmc      /dev/block/bootdevice/by-name/sec                  flags=display="Sec";backup=1;subpartitionof=/config
 
 
 # EFS backup/restore
@@ -43,4 +42,6 @@
 /efs2		emmc	  /dev/block/bootdevice/by-name/modemst2	     flags=backup=1;subpartitionof=/efs1
 /efsg		emmc	  /dev/block/bootdevice/by-name/fsg	             flags=backup=1;subpartitionof=/efs1
 /efsc		emmc	  /dev/block/bootdevice/by-name/fsc	             flags=backup=1;subpartitionof=/efs1
+#
+/cust         	ext4      /dev/block/bootdevice/by-name/cust       	     flags=display="Cust";backup=0
 #
