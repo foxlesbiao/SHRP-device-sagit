@@ -1,6 +1,8 @@
 #
 # Copyright 2017 The Android Open Source Project
 #
+# Copyright (C) 2018-2019 OrangeFox Recovery Project
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -22,8 +24,9 @@
 # bitrot and build breakages. Building a component unconditionally does
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
+#
+#
 
-# added by DJ9
 LOCAL_PATH := device/xiaomi/sagit
 
 # Architecture
@@ -65,12 +68,10 @@ endif
 
 ifeq ($(FOX_BUILD_FULL_KERNEL_SOURCES),1)
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_CONFIG := sagit_defconfig
+TARGET_KERNEL_CONFIG := sagit-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sagit
 else
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
-# original prebuilt kernel binary
-#TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/zImage
 PRODUCT_COPY_FILES += \
     $(TARGET_PREBUILT_KERNEL):kernel
 endif
@@ -80,29 +81,27 @@ endif
 TARGET_BOARD_PLATFORM := msm8998
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno540
 
+export CROSS_COMPILE_ARM32 = arm-linux-androideabi- 
+
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
-
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5368709120
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 120426835968
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
-
+BOARD_VENDORIMAGE_PARTITION_SIZE := 872415232
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-
-# Workaround for error copying vendor files to recovery ramdisk
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-
-# added by DJ9
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
 
 # TWRP specific build flags
@@ -110,15 +109,17 @@ BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_DEFAULT_BRIGHTNESS := 2047
+TW_DEFAULT_BRIGHTNESS := 1850
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXCLUDE_SUPERSU := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_CRYPTO := true
-#TARGET_HW_DISK_ENCRYPTION := true
-#TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-#TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_NTFS_3G := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_MAX_BRIGHTNESS := 4095
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_THEME := portrait_hdpi
+TW_INCLUDE_FBE := true
+TW_INCLUDE_FUSE_EXFAT := true
+TARGET_USES_64_BIT_BINDER := true
+#
