@@ -31,25 +31,14 @@ on early-init
 on fs
     wait /dev/block/platform/soc/1da4000.ufshc
     symlink /dev/block/platform/soc/1da4000.ufshc /dev/block/bootdevice
+    #disabled=#export ANDROID_ROOT /system_root
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
     chown system system /dev/ion
     install_keyring
 
-    # Mount firmware
-    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro shortname=lower uid=1000 gid=1000 dmask=227 fmask=337
-
-    # Only needed when we don't include all required blobs for crypto
-    #start prepdecrypt
     setprop crypto.ready 1
-
-service prepdecrypt /sbin/prepdecrypt.sh
-    oneshot
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
 
 # Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
 service sbinqseecomd /sbin/qseecomd
@@ -101,8 +90,11 @@ on boot
     setprop sys.usb.config mtp,adb
     setprop sys.usb.config adb
 
-    # Enable DT2W 
-    write /sys/devices/soc/c179000.i2c/i2c-5/5-0020/input/input1/wake_gesture 1
+    # Enable OTG
+    write /sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/usb/otg_switch 1
+
+    # Enable Double tap to wake
+    write /proc/touchpanel/double_tap_enable 1
 
 on property:crypto.ready=0
     stop sbinqseecomd
@@ -115,7 +107,7 @@ on property:crypto.ready=0
 on property:crypto.ready=1
     start sbinqseecomd
 
-on property:sys.listeners.registered=true
+on property:vendor.sys.listeners.registered=true
     start hwservicemanager
     start keymaster-3-0
     start gatekeeper-1-0
