@@ -8,17 +8,18 @@
 /recovery       emmc      /dev/block/bootdevice/by-name/recovery             	flags=display="Recovery";backup=1
 
 /system         ext4      /dev/block/bootdevice/by-name/system           	flags=display="System";backup=1;wipeingui
-#disabled=#/system_root ext4 /dev/block/bootdevice/by-name/system flags=display="System_root";backup=0;wipeingui=0
+/system_image   emmc   	  /dev/block/bootdevice/by-name/system			flags=display="System_image";backup=1;flashimg=1
 
-/system_image   emmc      /dev/block/bootdevice/by-name/system               	flags=backup=0;flashimg=1
-/vendor         ext4      /dev/block/bootdevice/by-name/cust                 	flags=display="Vendor/Cust";backup=1;wipeingui
-/vendor_image   emmc      /dev/block/bootdevice/by-name/cust                 	flags=backup=0;flashimg=1
 /data           ext4      /dev/block/bootdevice/by-name/userdata             	flags=encryptable=footer;length=-16384
+
+/vendor         ext4      /dev/block/bootdevice/by-name/cust                 	flags=display="Vendor/Cust";backup=1;wipeingui
+/vendor_image   emmc      /dev/block/bootdevice/by-name/cust                 	flags=display="Vendor/Cust(Image)";backup=1;flashimg=1
 
 /storage        ext4      /data/media/0                  		     	flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
 
-/persist        ext4      /dev/block/bootdevice/by-name/persist              	flags=display="Persist";backup=1
-/persist_image  emmc      /dev/block/bootdevice/by-name/persist              	flags=backup=1;flashimg=1
+/persist_image emmc   /dev/block/bootdevice/by-name/persist                 	flags=display="Persist(Image)";backup=1;flashimg=1
+/persist       ext4   /dev/block/bootdevice/by-name/persist                   	flags=display="Persist";backup=1
+
 /splash         emmc      /dev/block/bootdevice/by-name/splash               	flags=display="Boot Logo";backup=1;flashimg=1
 
 /sdcard1        auto      /dev/block/mmcblk1p1                               	flags=display="MicroSD";storage;wipeingui;removable

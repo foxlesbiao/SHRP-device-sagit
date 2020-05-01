@@ -31,7 +31,6 @@ on early-init
 on fs
     wait /dev/block/platform/soc/1da4000.ufshc
     symlink /dev/block/platform/soc/1da4000.ufshc /dev/block/bootdevice
-    #disabled=#export ANDROID_ROOT /system_root
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
@@ -67,7 +66,7 @@ service keystore_auth /sbin/keystore_auth
     disabled
     seclabel u:r:recovery:s0
 
-service keystore /sbin/keystore /data/misc/keystore
+service keystore /sbin/keystore /tmp/misc/keystore
     user root
     group root drmrpc readproc
     disabled
