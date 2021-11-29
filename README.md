@@ -1,6 +1,8 @@
 # android_device_xiaomi_sagit
 Tree for building TWRP for Xiaomi MI 6
 
+Source link:https://gitlab.com/OrangeFox/device/sagit
+
 ## To compile
 
 export ALLOW_MISSING_DEPENDENCIES=true
