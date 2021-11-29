@@ -119,3 +119,21 @@ TW_INCLUDE_FUSE_EXFAT := true
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
 #
+
+
+# SHRP
+SHRP_PATH := device/xiaomi/sagit
+SHRP_DEVICE_CODE := sagit
+SHRP_MAINTAINER := foxlesbiao
+SHRP_EDL_MODE := 0
+SHRP_INTERNAL := /sdcard
+SHRP_EXTERNAL := /external_sd
+SHRP_OTG := /usb_otg
+SHRP_REC_TYPE := A_Only
+SHRP_FLASH := 0
+SHRP_REC := /dev/block/platform/soc/1da4000.ufshc
+SHRP_REC_TYPE := SAR
+SHRP_AB := false 
+SHRP_EXPRESS := true
+SHRP_NO_SAR_AUTOMOUNT := true
+
