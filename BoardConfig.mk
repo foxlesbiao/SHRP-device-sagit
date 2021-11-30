@@ -133,7 +133,7 @@ SHRP_REC_TYPE := A_Only
 SHRP_FLASH := 0
 SHRP_REC := /dev/block/platform/soc/1da4000.ufshc/by-name/recovery
 SHRP_REC_TYPE := SAR
-SHRP_AB := false 
+#SHRP_AB := false 
 SHRP_EXPRESS := true
 SHRP_NO_SAR_AUTOMOUNT := true
 
